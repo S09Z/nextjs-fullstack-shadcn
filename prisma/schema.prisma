@@ -1,0 +1,1135 @@
+model access_log {
+  Id            Int     @id @default(autoincrement())
+  user_id       String? @db.VarChar(25)
+  log_type      String? @db.VarChar(25)
+  log_msg       String? @db.Text
+  user_ip       String? @db.Text
+  user_agent    String? @db.Text
+  log_timestamp String? @db.VarChar(50)
+}
+
+model authen_log {
+  authLogId   String    @id @db.VarChar(20)
+  authId      String?   @db.VarChar(20)
+  authType    String?   @db.VarChar(45)
+  authTypeMsg String?   @db.Text
+  userActive  String?   @db.VarChar(45)
+  userAction  String?   @db.VarChar(45)
+  created_at  DateTime? @db.DateTime(0)
+  created_by  String?   @db.VarChar(45)
+}
+
+model authentication {
+  authId     String    @id @db.VarChar(20)
+  host       String?   @db.VarChar(45)
+  dn         String?   @db.VarChar(45)
+  proxy_name String?   @db.VarChar(45)
+  proxy_pass String?   @db.VarChar(45)
+  created_at DateTime? @db.DateTime(0)
+  created_by String?   @db.VarChar(45)
+  updated_at DateTime? @db.DateTime(0)
+  updated_by String?   @db.VarChar(45)
+  companyId  String?   @db.VarChar(16)
+}
+
+model companies {
+  Id             String    @id @db.VarChar(25)
+  companyName    String    @db.VarChar(50)
+  companyDes     String?   @db.VarChar(45)
+  defaultSize    Decimal?  @db.Decimal(20, 0)
+  companySize    Decimal   @db.Decimal(14, 0)
+  created_by     String    @db.VarChar(25)
+  update_by      String    @db.VarChar(25)
+  created_at     DateTime  @db.DateTime(0)
+  updated_at     DateTime  @db.DateTime(0)
+  image          String?   @db.Text
+  companyType    Int?
+  companyuser    Int?
+  expire_date    DateTime? @db.DateTime(0)
+  start_package  DateTime? @db.DateTime(0)
+  end_package    String?   @db.VarChar(45)
+  type_package   Int?
+  comp_person    String?   @db.VarChar(45)
+  comp_domain    String?   @db.Text
+  comp_kind      String?   @db.VarChar(45)
+  comp_address   String?   @db.Text
+  comp_dayexp    String?   @db.VarChar(10)
+  featureGroupId Int?      @default(11)
+}
+
+model companies_kind {
+  Id   Int     @id
+  name String? @db.VarChar(100)
+}
+
+model companies_log {
+  log_id     String    @id @db.VarChar(25)
+  comp_id    String?   @db.VarChar(45)
+  type       String?   @db.VarChar(100)
+  logAction  String?   @db.VarChar(255)
+  logActive  String?   @db.VarChar(45)
+  created_at DateTime? @db.DateTime(0)
+}
+
+model config_contact {
+  idconfig_contact String  @id @db.VarChar(45)
+  tel              String? @db.VarChar(45)
+  lineId           String? @db.VarChar(45)
+  email            String? @db.VarChar(45)
+}
+
+model config_default {
+  id_config         String    @db.VarChar(20)
+  companyId         String    @db.VarChar(20)
+  config_space      Decimal?  @db.Decimal(20, 0)
+  config_language   String?   @db.VarChar(45)
+  config_contact    String?   @db.VarChar(45)
+  config_trash      String?   @db.VarChar(45)
+  config_watermark  String?   @db.VarChar(45)
+  config_formatdate String?   @db.VarChar(45)
+  config_sizeupload String?   @db.VarChar(45)
+  config_filetype   String?   @db.VarChar(2000)
+  config_theme      String?   @db.VarChar(45)
+  create_at         DateTime? @db.DateTime(0)
+  update_at         DateTime? @db.DateTime(0)
+  create_by         String?   @db.VarChar(45)
+  update_by         String?   @db.VarChar(45)
+
+  @@id([id_config, companyId])
+}
+
+model config_log {
+  log_id    String    @id @db.VarChar(25)
+  config_id String?   @db.VarChar(25)
+  type      String?   @db.VarChar(20)
+  logAction String?   @db.VarChar(200)
+  logActive String?   @db.VarChar(45)
+  create_at DateTime? @db.DateTime(0)
+}
+
+model config_theme_email {
+  idconfig_theme_email Int     @id
+  bg_color             String? @db.VarChar(500)
+  text_color           String? @db.VarChar(500)
+  btn_color            String? @db.VarChar(500)
+  btn_text_color       String? @db.VarChar(500)
+}
+
+model config_watermark {
+  idconfig_watermark String  @id @db.VarChar(45)
+  fontColor          String? @db.VarChar(45)
+  fontSize           String? @db.VarChar(45)
+  transparency       String? @db.VarChar(45)
+  orientation        String? @db.VarChar(45)
+  text               String? @db.VarChar(45)
+  check_user         String? @db.VarChar(45)
+  check_date         String? @db.VarChar(45)
+}
+
+model consents {
+  id               Int       @id @default(autoincrement())
+  userId           String?   @db.VarChar(25)
+  accepted         Boolean?
+  accepted_version String?   @db.VarChar(10)
+  accepted_date    DateTime? @db.DateTime(6)
+  created_at       DateTime? @db.DateTime(6)
+  updated_at       DateTime? @db.DateTime(6)
+  deleted_at       DateTime? @db.DateTime(6)
+
+  @@index([id], map: "id")
+}
+
+model contact {
+  id       Int       @id
+  name     String?   @db.Text
+  company  String?   @db.Text
+  tel      String?   @db.VarChar(25)
+  email    String?   @db.Text
+  contact  String?   @db.VarChar(45)
+  date     DateTime? @db.DateTime(0)
+  datatest String?   @default("0") @db.VarChar(45)
+}
+
+model document {
+  Id             String    @db.VarChar(25)
+  docNo          Int
+  docName        String?   @db.Text
+  docPermission  String?   @db.VarChar(10)
+  docPriority    Int?
+  docStatus      String?   @db.VarChar(6)
+  docDescription String?   @db.Text
+  docShare       Int?
+  docRoot        String?   @db.VarChar(25)
+  docVersion     Float?    @db.Float
+  docFile        String?   @db.Text
+  docCount       Int?
+  docSize        Float?
+  docType        Int?
+  created_by     String?   @db.VarChar(50)
+  updated_by     String?   @db.VarChar(50)
+  created_at     DateTime? @db.DateTime(0)
+  updated_at     String?   @db.VarChar(45)
+
+  @@id([Id, docNo])
+}
+
+model document_cc {
+  ccId       String    @id @db.VarChar(25)
+  taskId     String?   @db.VarChar(25)
+  docId      String?   @db.VarChar(25)
+  userId     String?   @db.VarChar(25)
+  created_at DateTime? @db.DateTime(0)
+  created_by String?   @db.VarChar(45)
+
+  @@index([created_by], map: "created_by")
+  @@index([docId], map: "docId")
+  @@index([taskId], map: "taskId")
+  @@index([userId], map: "userId")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model document_digital_certify {
+  Id           String?  @db.VarChar(25)
+  docId        String?  @db.VarChar(25)
+  taskId       String?  @db.VarChar(25)
+  certify_date DateTime @db.DateTime(0)
+  certify_user String?  @db.VarChar(25)
+  item_key     String   @db.Text
+  itemSigner   String   @db.VarChar(75)
+  itemReason   String   @db.VarChar(50)
+  item_ip      String?  @db.Text
+  itemLocation String   @db.VarChar(75)
+  itemDate     String   @db.VarChar(50)
+  status       Int?     @default(0)
+  itmType      Int?
+  digitalType  Int?
+  pstPage      Float
+  pstLevel     Int
+  pstNo        Int
+
+  @@ignore
+}
+
+model document_group {
+  docidGroup  String    @id @db.VarChar(25)
+  keyIndex    String?   @db.Text
+  create_by   String?   @db.VarChar(25)
+  create_at   DateTime? @db.DateTime(0)
+  groupStatus Int?
+  update_at   DateTime? @db.DateTime(0)
+  update_by   String?   @db.VarChar(25)
+  keyType     String?   @db.VarChar(45)
+
+  @@index([create_by], map: "create_by")
+  @@index([update_by], map: "update_by")
+}
+
+model document_index {
+  docindexId     String    @id @db.VarChar(25)
+  docindexName   String?   @db.VarChar(45)
+  docId          String?   @db.VarChar(25)
+  createindex_at DateTime? @db.DateTime(0)
+  createindex_by String?   @db.VarChar(25)
+  docGroupId     String?   @db.VarChar(25)
+  status         Int?
+
+  @@index([docGroupId], map: "docGroupId")
+  @@index([docId], map: "docId")
+}
+
+model document_indexing {
+  index_id     String  @db.VarChar(25)
+  col_id       String  @db.VarChar(25)
+  prop_no      Int
+  doc_id       String? @db.VarChar(25)
+  index_value  String? @db.Text
+  index_status Int?
+
+  @@id([index_id, col_id, prop_no])
+  @@index([col_id], map: "col_id")
+  @@index([doc_id], map: "doc_id")
+}
+
+model document_log {
+  docLogId      String   @id @db.VarChar(25)
+  docLogType    String?  @db.VarChar(25)
+  docLogTypeMsg String?  @db.Text
+  docLogDate    DateTime @db.DateTime(0)
+  docId         String?  @db.VarChar(25)
+  docOld        String   @db.Text
+  docNew        String   @db.Text
+  docOwn        String?  @db.VarChar(25)
+  docActive     String   @db.VarChar(25)
+
+  @@index([docActive], map: "docActive")
+  @@index([docId], map: "docId")
+  @@index([docOwn], map: "docOwn")
+}
+
+model document_properties {
+  prop_id     String    @id @db.VarChar(25)
+  prop_name   String?   @db.VarChar(50)
+  prop_status Int?
+  prop_public Int?
+  created_by  String?   @db.VarChar(25)
+  created_at  DateTime? @db.DateTime(0)
+  updated_by  String?   @db.VarChar(25)
+  updated_at  DateTime? @db.DateTime(0)
+
+  @@index([created_by], map: "created_by")
+  @@index([updated_by], map: "updated_by")
+}
+
+model document_properties_column {
+  prop_id         String  @db.VarChar(25)
+  col_id          String  @db.VarChar(45)
+  col_no          Int
+  prop_col        String? @db.VarChar(45)
+  prop_col_status Int?
+  prop_col_type   String? @db.VarChar(45)
+
+  @@id([prop_id, col_no, col_id])
+  @@index([col_id], map: "col_id")
+}
+
+model document_share {
+  shareId          String    @db.VarChar(25)
+  share_no         Int
+  share_at         DateTime? @db.DateTime(0)
+  share_by         String?   @db.VarChar(25)
+  share_to         String?   @db.VarChar(25)
+  share_des        String?   @db.Text
+  share_type       String?   @db.VarChar(10)
+  share_permission String?   @db.VarChar(10)
+  docId            String?   @db.VarChar(25)
+  share_alert      Int?
+  share_read       Int?
+  share_token      String?   @db.Text
+  share_status     Int?
+  share_parent     String?   @db.VarChar(10)
+
+  @@id([shareId, share_no])
+  @@index([docId], map: "docId")
+  @@index([share_by], map: "share_by")
+  @@index([share_to], map: "share_to")
+}
+
+model document_type {
+  docTypeId          Int     @id @default(autoincrement())
+  docTypeName        String? @db.VarChar(50)
+  docTypeIcon        String? @db.VarChar(50)
+  docTypeClass       String? @db.VarChar(50)
+  docTypeParent      String? @db.VarChar(45)
+  docTypeDescription String? @db.Text
+}
+
+model event_log {
+  eventId      String    @id @db.VarChar(25)
+  userId       String?   @db.VarChar(45)
+  eventType    String?   @db.VarChar(45)
+  eventTypeMsg String?   @db.Text
+  eventDate    DateTime? @db.DateTime(0)
+  userIP       String?   @db.Text
+  userAgent    String?   @db.Text
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model feature_detail {
+  id                Int       @id @default(autoincrement())
+  featureCode       String?   @db.VarChar(50)
+  featureName       String?   @db.VarChar(50)
+  featureStatus     Int?      @default(0)
+  workspaceType     Int?      @default(1)
+  releaseDate       DateTime? @db.DateTime(0)
+  expireDate        DateTime? @db.DateTime(0)
+  version_reference Int?      @default(1)
+  assigned_by       String?   @db.VarChar(50)
+  assigned_at       DateTime? @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model feature_group {
+  id          Int       @id @default(autoincrement())
+  groupId     Int?
+  groupName   String?   @db.VarChar(75)
+  groupCode   String?   @db.VarChar(25)
+  FeatureId   Int?
+  Status      Int?
+  releaseDate DateTime? @db.DateTime(0)
+  expireDate  DateTime? @db.DateTime(0)
+  assigned_by String?   @db.VarChar(25)
+  assigned_at DateTime? @db.DateTime(0)
+}
+
+model folder_template {
+  folder_id          String    @id @db.VarChar(25)
+  folder_name        String?   @db.VarChar(50)
+  folder_description String?   @db.Text
+  folder_root        String?   @db.VarChar(25)
+  folder_public      Int?
+  folder_status      Int?
+  created_by         String?   @db.VarChar(25)
+  created_at         DateTime? @db.DateTime(0)
+  updated_by         String?   @db.VarChar(25)
+  updated_at         DateTime? @db.DateTime(0)
+}
+
+model form {
+  form_id          String    @unique(map: "key") @db.VarChar(45)
+  form_name        String?   @db.VarChar(100)
+  form_description String?   @db.VarChar(100)
+  form_status      Int?
+  form_type        Int?      @default(1)
+  form_public      Int?
+  created_by       String?   @db.VarChar(45)
+  created_at       DateTime? @db.DateTime(0)
+  updated_by       String?   @db.VarChar(45)
+  updated_at       DateTime? @db.DateTime(0)
+  taskId           String?   @db.VarChar(25)
+}
+
+model form_document {
+  doc_id     String    @id @db.VarChar(25)
+  doc_no     Int?
+  sub_id     String?   @db.VarChar(25)
+  item_id    String?   @db.VarChar(25)
+  doc_name   String?   @db.Text
+  doc_file   String?   @db.VarChar(50)
+  doc_size   Float?
+  doc_type   Int?
+  doc_status Int?
+  created_at DateTime? @db.DateTime(0)
+  created_by String?   @db.VarChar(25)
+  updated_at DateTime? @db.DateTime(0)
+  updated_by String?   @db.VarChar(25)
+}
+
+model form_item {
+  form_id    String? @db.VarChar(45)
+  item_id    String  @db.VarChar(45)
+  item_no    Int
+  item_value String? @db.Text
+
+  @@id([item_id, item_no])
+}
+
+model form_item_properties {
+  item_id     Int     @id
+  item_name   String? @db.VarChar(45)
+  item_option String? @db.Text
+}
+
+model form_log {
+  log_id     String    @id @db.VarChar(25)
+  log_type   String?   @db.VarChar(45)
+  log_msg    String?   @db.VarChar(45)
+  log_date   DateTime? @db.DateTime(0)
+  form_id    String?   @db.VarChar(45)
+  log_old    String?   @db.Text
+  log_new    String?   @db.Text
+  log_active String?   @db.VarChar(45)
+  log_action String?   @db.VarChar(45)
+}
+
+model form_share {
+  share_id     String  @id @db.VarChar(25)
+  form_id      String? @db.VarChar(45)
+  share_status Int?
+  share_at     String? @db.VarChar(45)
+  share_to     String? @db.VarChar(45)
+  share_read   Int?
+  share_token  String? @db.Text
+  share_type   Int?
+}
+
+model form_submit {
+  sub_id     String    @db.VarChar(25)
+  form_id    String?   @db.VarChar(25)
+  item_id    String    @db.VarChar(45)
+  sub_value  String    @db.Text
+  sub_status Int?
+  created_at DateTime? @db.DateTime(0)
+  created_by String?   @db.VarChar(45)
+  updated_at DateTime? @db.DateTime(0)
+  updated_by String?   @db.VarChar(45)
+  ip         String?   @db.VarChar(45)
+  agent      String?   @db.Text
+  Id         Int       @unique(map: "Primary_extra") @default(autoincrement())
+}
+
+model form_template {
+  form_temp_id          Int       @id
+  form_temp_name        String?   @db.VarChar(50)
+  form_temp_description String?   @db.VarChar(50)
+  form_temp_status      Int?
+  created_at            DateTime? @db.DateTime(0)
+  created_by            String?   @db.VarChar(45)
+}
+
+model form_type {
+  form_type_id   Int     @id
+  form_type_name String? @db.Text
+}
+
+model group_document {
+  groupDocId          String    @db.VarChar(25)
+  groupDocNo          Int
+  groupDocName        String?   @db.Text
+  groupDocPermission  Int?
+  groupDocStatus      Int?
+  groupDocDescription String?   @db.Text
+  groupDocGroup       String?   @db.VarChar(25)
+  groupDocRoot        String?   @db.VarChar(25)
+  groupDocVersion     Float?    @db.Float
+  groupDocFile        String?   @db.VarChar(45)
+  groupDocType        Int?
+  groupDocSize        Decimal?  @db.Decimal(10, 0)
+  created_by          String?   @db.VarChar(25)
+  updated_by          String?   @db.VarChar(25)
+  created_at          DateTime? @db.DateTime(0)
+  updated_at          DateTime? @db.DateTime(0)
+  groupDocRead        Int?
+
+  @@id([groupDocId, groupDocNo])
+}
+
+model group_document_log {
+  groupDocLogId      String    @id @db.VarChar(25)
+  groupDocLogType    String?   @db.VarChar(20)
+  groupDocLogTypeMsg String?   @db.Text
+  groupDocLogDate    DateTime? @db.DateTime(0)
+  groupDocId         String?   @db.VarChar(45)
+  groupDocLogOld     String?   @db.Text
+  groupDocLogNew     String?   @db.Text
+  groupDocLogOwn     String?   @db.VarChar(25)
+  groupDocLogcActive String?   @db.VarChar(25)
+  groupId            String?   @db.VarChar(25)
+}
+
+model group_logs {
+  groupLogId      String    @id @db.VarChar(25)
+  groupId         String?   @db.VarChar(25)
+  groupLogType    String?   @db.VarChar(20)
+  groupLogTypeMsg String?   @db.Text
+  userActive      String?   @db.VarChar(20)
+  userAction      String?   @db.VarChar(20)
+  created_at      DateTime? @db.DateTime(0)
+}
+
+model group_members {
+  groupId           String    @db.VarChar(25)
+  member_no         String    @db.VarChar(10)
+  member            String    @db.VarChar(25)
+  member_level      Int?
+  member_permission Int?
+  member_status     Int?
+  invite_by         String?   @db.VarChar(25)
+  invite_at         DateTime? @db.DateTime(0)
+
+  @@id([groupId, member_no, member])
+}
+
+model groups {
+  groupId          String    @id @db.VarChar(25)
+  groupName        String?   @db.Text
+  groupDescription String?   @db.Text
+  groupStatus      Int?
+  created_by       String?   @db.VarChar(25)
+  updated_by       String?   @db.VarChar(25)
+  created_at       DateTime? @db.DateTime(0)
+  updated_at       DateTime? @db.DateTime(0)
+  groupImage       String?   @db.Text
+  companyId        String?   @db.VarChar(25)
+}
+
+model invoice {
+  Id           String  @id @db.VarChar(25)
+  comId        String? @db.VarChar(45)
+  userId       String? @db.VarChar(45)
+  packId       String? @db.VarChar(45)
+  account      String? @db.VarChar(45)
+  peruser      String? @db.VarChar(45)
+  total        String? @db.VarChar(45)
+  invoice_date String? @db.VarChar(45)
+}
+
+model lead {
+  id        Int       @id @default(autoincrement())
+  name      String?   @db.Text
+  tel       String?   @db.Text
+  email     String?   @db.Text
+  uuid      String?   @db.Text
+  url       String?   @db.Text
+  timestamp DateTime? @default(now()) @db.DateTime(0)
+  quiz      String?   @db.Text
+  company   String?   @db.Text
+}
+
+model licence_users {
+  licence_id     String    @db.VarChar(25)
+  licence_no     Int
+  licence_active Int?
+  userId         String?   @db.VarChar(25)
+  assigned_by    String?   @db.VarChar(25)
+  assigned_at    DateTime? @db.DateTime(0)
+
+  @@id([licence_id, licence_no])
+  @@index([assigned_by], map: "assigned_by")
+  @@index([userId], map: "userId")
+}
+
+model licences {
+  licence_id     String    @id @db.VarChar(30)
+  licence_start  DateTime? @db.Date
+  licence_expire DateTime? @db.Date
+  licence_status Int?
+  companyId      String?   @db.VarChar(25)
+
+  @@index([companyId], map: "companyId")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model mail_queue {
+  Id             Int       @id @default(autoincrement())
+  queue_id       String?   @db.VarChar(40)
+  mail_subject   String?   @db.VarChar(100)
+  mail_body      String?   @db.Text
+  mail_receiver  String?   @db.VarChar(50)
+  mail_status    String?   @db.VarChar(25)
+  mail_send_date DateTime? @db.DateTime(0)
+  mail_type      String?   @db.VarChar(25)
+  extra          String?   @db.VarChar(75)
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement()) @db.UnsignedInt
+  migration String @db.VarChar(255)
+  batch     Int
+}
+
+model mojis {
+  id        Int      @id @default(autoincrement())
+  name      String?  @db.VarChar(255)
+  store     String?  @db.VarChar(255)
+  price     Int?
+  createdAt DateTime @db.DateTime(0)
+  updatedAt DateTime @db.DateTime(0)
+}
+
+model noti_expire {
+  noti_id     String    @id @db.VarChar(45)
+  doc_id      String?   @db.VarChar(45)
+  date_expire DateTime? @db.DateTime(0)
+  noti_date   DateTime? @db.DateTime(0)
+  noti_status String?   @db.VarChar(45)
+  alert       String?   @db.VarChar(45)
+}
+
+model noti_expireuser {
+  noti_id     String  @id @db.VarChar(105)
+  companyId   String? @db.VarChar(45)
+  date_expire String? @db.VarChar(45)
+  noti_date   String? @db.VarChar(45)
+  status      String? @db.VarChar(45)
+  alert       String? @db.VarChar(45)
+}
+
+model notify_log {
+  notiId      String    @id @db.VarChar(25)
+  notiType    String?   @db.VarChar(50)
+  notiTypeMsg String?   @db.Text
+  notiName    String?   @db.Text
+  notiMsg     String?   @db.Text
+  notiIco     String?   @db.Text
+  notiLink    String?   @db.Text
+  notiDate    DateTime? @db.DateTime(0)
+  userRead    Int?
+  userAlert   Int?
+  userReceive String?   @db.VarChar(25)
+  userSend    String?   @db.VarChar(25)
+  shareId     String?   @db.VarChar(30)
+
+  @@index([userReceive], map: "userReceive")
+}
+
+model notify_log_test {
+  notiId      String    @id @db.VarChar(25)
+  notiType    String?   @db.VarChar(50)
+  notiTypeMsg String?   @db.Text
+  notiName    String?   @db.Text
+  notiMsg     String?   @db.Text
+  notiIco     String?   @db.Text
+  notiLink    String?   @db.Text
+  notiDate    DateTime? @db.DateTime(0)
+  userRead    Int?
+  userAlert   Int?
+  userReceive String?   @db.VarChar(25)
+  userSend    String?   @db.VarChar(25)
+  shareId     String?   @db.VarChar(30)
+}
+
+model oauth_access_tokens {
+  id         String    @id @db.VarChar(100)
+  user_id    String?   @db.VarChar(25)
+  client_id  String    @db.VarChar(255)
+  name       String?   @db.VarChar(255)
+  scopes     String?   @db.Text
+  revoked    Boolean
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  expires_at DateTime? @db.DateTime(0)
+
+  @@index([user_id], map: "oauth_access_tokens_user_id_index")
+}
+
+model oauth_auth_codes {
+  id         String    @id @db.VarChar(25)
+  user_id    BigInt?
+  client_id  BigInt?
+  scopes     String?   @db.Text
+  revoked    Boolean
+  expires_at DateTime? @db.DateTime(0)
+
+  @@index([user_id], map: "oauth_auth_codes_user_id_index")
+}
+
+model oauth_clients {
+  id                     BigInt    @id
+  user_id                String?   @db.VarChar(25)
+  name                   String    @db.VarChar(255)
+  secret                 String?   @db.VarChar(100)
+  provider               String?   @db.VarChar(255)
+  redirect               String    @db.Text
+  personal_access_client Boolean
+  password_client        Boolean
+  revoked                Boolean
+  created_at             DateTime? @db.Timestamp(0)
+  updated_at             DateTime? @db.Timestamp(0)
+
+  @@index([user_id], map: "oauth_clients_user_id_index")
+}
+
+model oauth_personal_access_clients {
+  id         BigInt    @id
+  client_id  BigInt?
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+}
+
+model oauth_refresh_tokens {
+  id              String    @id @db.VarChar(100)
+  access_token_id String    @db.VarChar(100)
+  revoked         Boolean
+  expires_at      DateTime? @db.DateTime(0)
+
+  @@index([access_token_id], map: "oauth_refresh_tokens_access_token_id_index")
+}
+
+/// This model has been renamed to 'Renamedpackage' during introspection, because the original name 'package' is reserved.
+model Renamedpackage {
+  pack_id          Int      @id
+  pack_name        String?  @db.VarChar(45)
+  pack_description String?  @db.VarChar(45)
+  pack_price       Decimal? @db.Decimal(10, 2)
+  pack_size        String?  @db.VarChar(45)
+  pack_user        String?  @db.VarChar(45)
+  pack_day         String?  @db.VarChar(45)
+  pack_status      String?  @db.VarChar(45)
+  pack_discount    Decimal? @db.Decimal(10, 0)
+  pack_total       Decimal? @db.Decimal(10, 2)
+
+  @@map("package")
+}
+
+model payment_details {
+  payment_id     String  @db.VarChar(25)
+  payment_no     Int
+  licence_id     String? @db.VarChar(25)
+  payment_price  Float?
+  payment_amount Int?
+  payment_total  Float?
+
+  @@id([payment_id, payment_no])
+}
+
+model payments {
+  payment_id     String    @id @db.VarChar(25)
+  payment_date   DateTime? @db.DateTime(0)
+  payment_type   String?   @db.VarChar(10)
+  payment_status Int?
+  created_by     String?   @db.VarChar(25)
+  created_at     DateTime? @db.DateTime(0)
+}
+
+model sequelizemeta {
+  name String @id @unique(map: "name") @db.VarChar(255)
+}
+
+model sessions {
+  id         String @id @db.VarChar(40)
+  ip_address String @db.VarChar(45)
+  timestamp  Int    @default(0) @db.UnsignedInt
+  data       Bytes  @db.Blob
+
+  @@index([timestamp], map: "ci_sessions_timestamp")
+}
+
+model system_version {
+  v_id            Int      @id @unique(map: "id") @default(autoincrement())
+  v_code          String   @default("1.0.0") @db.VarChar(50)
+  v_assigned_at   DateTime @default(now()) @db.DateTime(0)
+  v_assigned_by   String?  @db.VarChar(25)
+  v_description   String?  @db.VarChar(255)
+  v_no            Int      @default(0)
+  v_active_status Int      @default(0)
+  v_code_decrypt  String   @db.VarChar(75)
+  v_code_num      Int?     @default(100)
+}
+
+model tasks {
+  taskId       String    @id @db.VarChar(25)
+  taskTitle    String?   @db.Text
+  taskMsg      String?   @db.Text
+  taskDue      DateTime? @db.Date
+  taskType     Int?      @default(1)
+  taskPriority String?   @default("1") @db.VarChar(5)
+  taskStatus   Int?      @default(1)
+  created_by   String?   @db.VarChar(25)
+  updated_by   String?   @db.VarChar(25)
+  created_at   DateTime? @default(now()) @db.DateTime(0)
+  updated_at   DateTime? @default(now()) @db.DateTime(0)
+  alertDate    DateTime? @db.Date
+  alert        Int?
+}
+
+model tasks_approval {
+  taskId         String  @db.VarChar(25)
+  approve_level  Int
+  userId         String  @db.VarChar(25)
+  docId          String  @db.VarChar(25)
+  approve_status Int?
+  reject_msg     String? @db.VarChar(250)
+
+  @@id([taskId, userId, docId, approve_level])
+}
+
+model tasks_form {
+  taskId       String?   @db.VarChar(25)
+  task_form_id String    @id @db.VarChar(25)
+  itm_no       Int?      @default(1)
+  itm_subject  String?   @db.VarChar(50)
+  itm_type     Int?
+  itm_options  String?   @db.Text
+  assigned_on  DateTime? @db.Timestamp(0)
+  assigned_by  String?   @db.VarChar(50)
+  answer_on    DateTime? @db.Timestamp(0)
+  answer_by    String?   @db.VarChar(50)
+}
+
+model tasks_item {
+  taskId     String  @db.VarChar(25)
+  itemNo     Int
+  itemId     String? @db.VarChar(25)
+  itemStatus Int?
+
+  @@id([taskId, itemNo])
+}
+
+model tasks_item_attachment {
+  taskId     String  @db.VarChar(25)
+  itemNo     Int
+  itemId     String? @db.VarChar(25)
+  itemStatus Int?
+
+  @@id([taskId, itemNo])
+}
+
+model tasks_log {
+  taskId         String    @db.VarChar(25)
+  taskLogId      Int
+  taskLogType    String?   @db.VarChar(50)
+  taskLogTypeMsg String?   @db.Text
+  taskLogMsg     String?   @db.Text
+  userId         String?   @db.VarChar(25)
+  taskLogCreated DateTime? @db.DateTime(0)
+  taskLogUpdated DateTime? @db.DateTime(0)
+
+  @@id([taskId, taskLogId])
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tasks_position {
+  taskId    String  @db.VarChar(25)
+  pstNo     Int
+  pstLevel  Int
+  pstCount  Float
+  pstType   String  @db.VarChar(10)
+  pstPage   Float
+  pstHeight Float?
+  pstWidth  Float?
+  pstX      Float?
+  pstY      Float?
+  itemNo    Int?
+  dfWidth   Float?
+  dfHeight  Float?
+  pstStatus Int?
+  pstUserId String? @db.VarChar(50)
+
+  @@unique([taskId, pstLevel, pstCount, pstType, pstPage, pstNo, pstUserId, itemNo], map: "PRIMARY_2")
+  @@ignore
+}
+
+model tasks_tags {
+  taskId          String    @db.VarChar(25)
+  tagNo           Int
+  tagLevel        Int
+  userId          String?   @db.VarChar(25)
+  tagStatus       Int?
+  tagMsg          String?   @db.Text
+  tagAlert        Int?
+  tagRead         Int?
+  tagApprove_at   DateTime? @db.DateTime(0)
+  tagLink         String?   @db.Text
+  tagApprove_type Int?
+  definedMin      Int?      @default(0)
+
+  @@id([taskId, tagNo, tagLevel])
+}
+
+model temp_cc {
+  temp_id String  @db.VarChar(25)
+  userno  Int
+  userId  String? @db.VarChar(25)
+
+  @@id([temp_id, userno])
+}
+
+model temp_position {
+  temp_id    String  @db.VarChar(25)
+  pst_no     Int
+  pst_level  Int
+  pst_count  Int
+  pst_type   String  @db.VarChar(10)
+  pst_page   Int
+  pst_height Float?
+  pst_width  Float?
+  pst_x      Float?
+  pst_y      Float?
+  itemNo     Int?
+  dfWidth    Float?
+  dfHeight   Float?
+  pstStatus  Int?
+  pstUserId  String? @db.VarChar(50)
+
+  @@id([temp_id, pst_no, pst_level, pst_count, pst_type, pst_page])
+}
+
+model temp_share {
+  temp_share_id String  @id @db.VarChar(25)
+  temp_id       String? @db.VarChar(45)
+  share_status  Int?
+  share_at      String? @db.VarChar(45)
+  share_to      String? @db.VarChar(45)
+  share_read    Int?
+  share_type    Int?
+  company_id    String? @db.VarChar(25)
+}
+
+model temp_tags {
+  temp_id         String  @db.VarChar(25)
+  tag_no          Int
+  tag_level       Int
+  userId          String? @db.VarChar(25)
+  level_desc      String? @db.VarChar(100)
+  tagApprove_type Int?
+  definedMin      Int?    @default(0)
+
+  @@id([temp_id, tag_no, tag_level])
+}
+
+model temp_tasks {
+  temp_id       String    @id @db.VarChar(25)
+  temp_title    String?   @db.Text
+  temp_msg      String?   @db.Text
+  due           Int?      @default(1)
+  temp_priority String?   @db.VarChar(5)
+  created_by    String?   @db.VarChar(25)
+  updated_by    String?   @db.VarChar(25)
+  created_at    DateTime? @db.DateTime(0)
+  updated_at    DateTime? @db.DateTime(0)
+  tempStatus    Int?
+  tempShare     Int?
+}
+
+model token_log {
+  tokenLogId  String    @db.VarChar(25)
+  token       String    @db.VarChar(100)
+  LogType     String?   @db.VarChar(50)
+  LogTypeMsg  String?   @db.Text
+  LogDate     DateTime? @db.DateTime(0)
+  LogActivity String?   @db.Text
+  userIP      String?   @db.Text
+  userAgent   String?   @db.Text
+  oldData     String?   @db.Text
+  newData     String?   @db.Text
+
+  @@id([tokenLogId, token])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model user_verify {
+  masterId             String    @id @unique(map: "Id") @db.VarChar(25)
+  code                 String    @db.VarChar(50)
+  personalFName        String?   @db.VarChar(25)
+  personalLName        String?   @db.VarChar(25)
+  licenseNationality   String?   @default("0") @db.VarChar(100)
+  licenseBirthday      DateTime? @db.Date
+  licenseCode          String?   @default("0") @db.VarChar(20)
+  verifyStatus         Int?      @default(1)
+  personalPhone_num    Int?
+  personalPhone_code   Int?      @default(0)
+  personalSex          Int?      @default(0)
+  personalRelationship Int?      @default(0)
+  assigned_by          String?   @db.VarChar(25)
+  assigned_date        DateTime? @db.Timestamp(0)
+  verify_by            String?   @db.VarChar(25)
+  verify_date          DateTime? @db.Timestamp(0)
+  updated_by           String?   @db.VarChar(25)
+  updated_at           DateTime? @db.Timestamp(0)
+}
+
+model user_verify_address {
+  Id              BigInt    @id @unique(map: "Id")
+  masterId        String?   @db.VarChar(25)
+  addrType        Int?
+  addrInfo        String?   @db.VarChar(100)
+  addrInfo_sub    String?   @db.VarChar(100)
+  addrNation      String?   @db.Text
+  addrProvince    String?   @db.VarChar(50)
+  addrDistrict    String?   @db.VarChar(50)
+  addrSubDistrict String?   @db.VarChar(50)
+  addrPostCode    String?   @db.VarChar(50)
+  assigned_by     String?   @db.VarChar(25)
+  assigned_date   DateTime? @db.Timestamp(0)
+  updated_by      String?   @db.VarChar(25)
+  updated_at      DateTime? @db.Timestamp(0)
+  status          Int?      @default(0)
+}
+
+model user_verify_log {
+  verifyLog_Id Float     @id @unique(map: "id")
+  verify_Id    String?   @db.VarChar(25)
+  logSubject   String?   @db.VarChar(30)
+  logMsg       String?   @db.VarChar(60)
+  logBy        String?   @db.VarChar(25)
+  logAt        DateTime? @db.Timestamp(0)
+  actionOn     String?   @db.VarChar(30)
+  actionTo     String?   @db.VarChar(30)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model user_verify_obj {
+  Id                    Int?      @unique(map: "Id")
+  code                  String?   @db.VarChar(50)
+  status                Int       @default(1)
+  objLicenseId          String?   @db.Text
+  objLicenseId_status   Int       @default(0)
+  objFace               String?   @db.Text
+  objFace_status        Int       @default(0)
+  objFaceCloseup        String?   @db.Text
+  objFaceCloseup_status Int       @default(0)
+  companyId             String?   @db.VarChar(25)
+  created_at            DateTime? @db.DateTime(0)
+  updated_at            DateTime? @db.DateTime(0)
+  created_by            String?   @db.VarChar(25)
+  updated_by            String?   @db.VarChar(25)
+  masterId              String?   @unique(map: "masterId") @db.VarChar(25)
+
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model users {
+  Id         String   @id @db.VarChar(30)
+  username   String   @db.VarChar(45)
+  email      String   @db.VarChar(50)
+  password   String   @db.VarChar(50)
+  firstName  String   @db.VarChar(50)
+  lastName   String   @db.VarChar(50)
+  sex        String?  @db.VarChar(10)
+  dept       String?  @db.VarChar(45)
+  job        String?  @db.VarChar(50)
+  phone      String?  @db.VarChar(15)
+  size       Float
+  size_count Float?
+  size_cont  Float?
+  level      Int
+  status     Int
+  companyId  String?  @db.VarChar(25)
+  remember   Int
+  created_by String?  @db.VarChar(25)
+  updated_by String?  @db.VarChar(25)
+  created_at DateTime @db.DateTime(0)
+  updated_at DateTime @db.DateTime(0)
+  code       String   @db.VarChar(50)
+  image      String?  @db.Text
+  digit      String?  @db.VarChar(45)
+  guide      Int?
+
+  @@index([companyId], map: "companyId")
+}
+
+model users_guest {
+  Id          String    @id @db.VarChar(25)
+  firstName   String?   @db.VarChar(45)
+  lastName    String?   @db.VarChar(45)
+  email       String?   @db.VarChar(45)
+  sex         String?   @db.VarChar(6)
+  phone       String?   @db.VarChar(45)
+  dept        String?   @db.VarChar(45)
+  job         String?   @db.VarChar(45)
+  companyName String?   @db.VarChar(45)
+  created_at  DateTime? @db.DateTime(0)
+  created_by  String?   @db.VarChar(45)
+  updated_at  DateTime? @db.DateTime(0)
+  updated_by  String?   @db.VarChar(45)
+  image       String?   @db.VarChar(45)
+  read_at     DateTime? @db.DateTime(0)
+  count       String?   @db.VarChar(45)
+  status      Int?
+}
+
+model users_log {
+  userLogId       String    @db.VarChar(20)
+  userId          String    @db.VarChar(16)
+  userLogType     String?   @db.VarChar(50)
+  userLogTypeMsg  String?   @db.Text
+  userLogDate     DateTime? @db.DateTime(0)
+  userLogActivity String?   @db.Text
+  userIP          String?   @db.Text
+  userAgent       String?   @db.Text
+  oldData         String?   @db.Text
+  newData         String?   @db.Text
+
+  @@id([userLogId, userId])
+}
+
+model users_signature {
+  userId                String    @db.VarChar(25)
+  userSignature_No      Int
+  userSignature_Content String?   @db.Text
+  userSignature_Update  DateTime? @db.DateTime(0)
+  userSignature_Status  Int?
+  userHashId            String?   @db.Text
+
+  @@id([userId, userSignature_No])
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
