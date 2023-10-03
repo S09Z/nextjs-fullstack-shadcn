@@ -1,6 +1,9 @@
+import prisma from '../lib/prisma'
+
 // /graphql/resolvers.ts
 export const resolvers = {
   Query: {
+    users:() => { return prisma.users.findMany() },
     links: () => {
       return [
         {
