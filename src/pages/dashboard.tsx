@@ -1,5 +1,7 @@
 import { Metadata } from "next"
 import Image from "next/image"
+import { gql, useQuery } from '@apollo/client'
+import type { users } from '@prisma/client'
 
 import { Button } from "../components/ui/button"
 import {
@@ -28,9 +30,27 @@ export const metadata: Metadata = {
   description: "Example dashboard app built using the components.",
 }
 
+const AllLinksQuery = gql`
+  query {
+    users {
+      edges {
+        node {
+          id,
+          email
+        }
+      }
+    }
+  }
+`
+
 export default function DashboardPage() {
+  const { data, loading, error } = useQuery(AllLinksQuery)
+  
   return (
     <>
+      {data?.users.edges.map(({ node }: { node: users }) => (
+        <p className="text-sm text-blue-500">{node.email}</p>
+      ))}
       <div className="md:hidden">
         <Image
           src="/examples/dashboard-light.png"

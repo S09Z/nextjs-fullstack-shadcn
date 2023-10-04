@@ -107,6 +107,9 @@ dependencies:
   '@radix-ui/react-tooltip':
     specifier: ^1.0.7
     version: 1.0.7(@types/react@18.2.23)(react-dom@18.2.0)(react@18.2.0)
+  '@tanstack/react-table':
+    specifier: ^8.10.3
+    version: 8.10.3(react-dom@18.2.0)(react@18.2.0)
   aws-sdk:
     specifier: ^2.1467.0
     version: 2.1467.0
@@ -128,18 +131,30 @@ dependencies:
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
+  fp-ts:
+    specifier: ^2.16.1
+    version: 2.16.1
   generated:
     specifier: link:@pothos/plugin-prisma/generated
     version: link:@pothos/plugin-prisma/generated
   graphql:
     specifier: ^16.8.1
     version: 16.8.1
+  graphql-scalars:
+    specifier: ^1.22.2
+    version: 1.22.2(graphql@16.8.1)
   graphql-yoga:
     specifier: ^4.0.5
     version: 4.0.5(graphql@16.8.1)
   install:
     specifier: ^0.13.0
     version: 0.13.0
+  io-ts:
+    specifier: ^2.2.20
+    version: 2.2.20(fp-ts@2.16.1)
+  io-ts-extra:
+    specifier: ^0.11.6
+    version: 0.11.6
   lucide-react:
     specifier: ^0.274.0
     version: 0.274.0(react@18.2.0)
@@ -2160,6 +2175,23 @@ packages:
       tailwindcss: 3.3.3
     dev: true
 
+  /@tanstack/react-table@8.10.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Qya1cJ+91arAlW7IRDWksRDnYw28O446jJ/ljkRSc663EaftJoBCAU10M+VV1K6MpCBLrXq1BD5IQc1zj/ZEjA==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      '@tanstack/table-core': 8.10.3
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@tanstack/table-core@8.10.3:
+    resolution: {integrity: sha512-hJ55YfJlWbfzRROfcyA/kC1aZr/shsLA8XNAwN8jXylhYWGLnPmiJJISrUfj4dMMWRiFi0xBlnlC7MLH+zSrcw==}
+    engines: {node: '>=12'}
+    dev: false
+
   /@types/cross-spawn@6.0.2:
     resolution: {integrity: sha512-KuwNhp3eza+Rhu8IFI5HUXRP0LIhqH5cAjubUvGXXthh4YYBuP2ntwEX+Cz8GJoZUHlKo247wPWOfA9LYEq4cw==}
     dependencies:
@@ -3092,6 +3124,10 @@ packages:
       mime-types: 2.1.35
     dev: false
 
+  /fp-ts@2.16.1:
+    resolution: {integrity: sha512-by7U5W8dkIzcvDofUcO42yl9JbnHTEDBrzu3pt5fKT+Z4Oy85I21K80EYJYdjQGC2qum4Vo55Ag57iiIK4FYuA==}
+    dev: false
+
   /fraction.js@4.3.6:
     resolution: {integrity: sha512-n2aZ9tNfYDwaHhvFTkhFErqOMIb8uyzSQ+vGJBjZyanAKZVbGUQ1sngfk9FdkBw7G26O7AgNjLcecLffD1c7eg==}
     dev: true
@@ -3201,6 +3237,16 @@ packages:
 
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+    dev: false
+
+  /graphql-scalars@1.22.2(graphql@16.8.1):
+    resolution: {integrity: sha512-my9FB4GtghqXqi/lWSVAOPiTzTnnEzdOXCsAC2bb5V7EFNQjVjwy3cSSbUvgYOtDuDibd+ZsCDhz+4eykYOlhQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      graphql: 16.8.1
+      tslib: 2.6.2
     dev: false
 
   /graphql-tag@2.12.6(graphql@16.8.1):
@@ -3323,6 +3369,21 @@ packages:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
     dependencies:
       loose-envify: 1.4.0
+    dev: false
+
+  /io-ts-extra@0.11.6:
+    resolution: {integrity: sha512-rTsvx3W5B2nx7p/eGf+OsEaBTmjSjLzxBDEiweCjwqIL9ZN6CZjG7hFK8zyGJyM0I2uCsRU4uYUhaTgg2SKHkQ==}
+    dependencies:
+      fp-ts: 2.16.1
+      io-ts: 2.2.20(fp-ts@2.16.1)
+    dev: false
+
+  /io-ts@2.2.20(fp-ts@2.16.1):
+    resolution: {integrity: sha512-Rq2BsYmtwS5vVttie4rqrOCIfHCS9TgpRLFpKQCM1wZBBRY9nWVGmEvm2FnDbSE2un1UE39DvFpTR5UL47YDcA==}
+    peerDependencies:
+      fp-ts: ^2.5.0
+    dependencies:
+      fp-ts: 2.16.1
     dev: false
 
   /is-arguments@1.1.1:
