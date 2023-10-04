@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - NEXT_PUBLIC_PORT=3000
+      - NEXT_PUBLIC_REQUEST_TIMEOUT=4000
+      - NEXT_PUBLIC_API_GATEWAY_URL=https://flow-api-gateway-dev.siamrajathanee.dev
+      - NEXT_PUBLIC_API_DOCUMENT_URL=https://flow-document-dev.siamrajathanee.dev
+      - NEXT_PUBLIC_API_BPM_URL=https://flow-api-gateway-dev.siamrajathanee.dev
+      - NEXT_PUBLIC_TAG_MANAGER_ID=GTM-PRGMWZN
+      - NEXT_NOTIFICATION_SET_INTERVAL=1000
+    ports:
+      - '3005:3000'

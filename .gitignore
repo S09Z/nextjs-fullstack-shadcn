@@ -36,4 +36,5 @@ yarn-error.log*
 
 package-lock.json
 
+prisma/client
 .vscode
