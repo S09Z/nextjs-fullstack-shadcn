@@ -47,26 +47,35 @@ export const metadata: Metadata = {
   description: "A task and issue tracker build using Tanstack Table.",
 }
 
+
 const AllLinksQuery = gql`
-  query {
-    users {
+  query allLinksQuery($first: Int, $after: ID) {
+    users(first: $first, after: $after) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
       edges {
+        cursor
         node {
-          id,
+          companyId
           email
+          firstName
+          id
+          image
+          lastName
+          status
+          storeSize
+          usageSize
+          updatedAt
+          createdAt
         }
       }
     }
   }
-`
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
-}
+`;
 
-export const columns: ColumnDef<users>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -87,13 +96,6 @@ export const columns: ColumnDef<users>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-  {
     accessorKey: "email",
     header: ({ column }) => {
       return (
@@ -109,18 +111,49 @@ export const columns: ColumnDef<users>[] = [
     cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "Fullname",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Fullname
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
+      return <div className="lowercase">{`${row.original.firstName} ${row.original.lastName}`}</div>
+    }
+  },
+  {
+    accessorKey: "status",
+    header: () => <div className="text-center capitalize">status</div>,
+    cell: ({ row }) => (
+      <div className="capitalize text-center">{row.getValue("status")}</div>
+    ),
+  },
+  {
+    accessorKey: "Usage",
+    header: () => <div className="text-left capitalize">Usage</div>,
+    cell: ({ row }) => {
+      return <div className="capitalize">{`${row.original.usageSize} / ${row.original.storeSize}`}</div>
+    },
+  },
+  {
+    accessorKey: "updatedAt",
+    header: () => <div className="text-right">updatedAt</div>,
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("updatedAt"))
  
       // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
+      // const formatted = new Intl.NumberFormat("en-US", {
+      //   style: "currency",
+      //   currency: "USD",
+      // }).format(amount)
  
-      return <div className="text-right font-medium">{formatted}</div>
+      return <div className="text-right font-medium">{row.getValue("updatedAt")}</div>
     },
   },
   {
@@ -132,7 +165,7 @@ export const columns: ColumnDef<users>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <Button variant="ghost" className="h-8 w-8 p-0 w-full">
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
@@ -164,7 +197,9 @@ export default function TaskPage() {
   const [rowSelection, setRowSelection] = React.useState({})
   const [membersData, setMembersData] = React.useState<users[]>([]);
 
-  const { data, loading, error } = useQuery(AllLinksQuery)
+  const { data, loading, error, fetchMore } = useQuery(AllLinksQuery, {
+    variables: { first: 1000 },
+  });
 
   React.useEffect(() => {
     // When loading is done and there's no error, update the state
@@ -193,7 +228,6 @@ export default function TaskPage() {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
     },
   })
 

@@ -31,20 +31,40 @@ export const metadata: Metadata = {
 }
 
 const AllLinksQuery = gql`
-  query {
-    users {
+  query allLinksQuery($first: Int, $after: ID) {
+    links(first: $first, after: $after) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
       edges {
+        cursor
         node {
-          id,
+          companyId
           email
+          firstName
+          id
+          image
+          lastName
+          status
+          storeSize
+          usageSize
+          updatedAt
+          createdAt
         }
       }
     }
   }
-`
+`;
 
 export default function DashboardPage() {
-  const { data, loading, error } = useQuery(AllLinksQuery)
+  const { data, loading, error, fetchMore } = useQuery(AllLinksQuery, {
+    variables: { first: 1000 },
+  });
+
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
   
   return (
     <>

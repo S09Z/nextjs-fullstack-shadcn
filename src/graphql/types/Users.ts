@@ -4,11 +4,16 @@ import { builder } from "../builder";
 builder.prismaObject('users', {
   fields: (t) => ({
     id: t.exposeID('Id'),
-    email: t.exposeString('email', { nullable: true, }),
+    email: t.exposeString('email', { nullable: false, }),
     image: t.exposeString('image', { nullable: true, }),
     companyId: t.exposeString('companyId', { nullable: true, }),
     firstName: t.exposeString('firstName', { nullable: true, }),
     lastName: t.exposeString('lastName', { nullable: true, }),
+    status: t.exposeInt('status', { nullable: false, }),
+    usageSize: t.exposeFloat('size', { nullable: false, }),
+    storeSize: t.exposeFloat('size_cont', { nullable: true, }),
+    updatedAt: t.expose('updated_at', {type: "Date", nullable: true}),
+    createdAt: t.expose('created_at', {type: "Date", nullable: true}),
   })
 })
 
@@ -17,7 +22,7 @@ builder.queryField('users', (t) =>
     type: 'users',
     cursor: 'Id',
     resolve: (query, _parent, _args, _ctx, _info) =>
-      prisma.users.findMany({ ...query })
+      prisma.users.findMany({ ...query, where: { status: 1}, orderBy: { 'updated_at': 'desc' }})
   })
 )
 
