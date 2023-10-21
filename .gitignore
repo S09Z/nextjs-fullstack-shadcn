@@ -38,3 +38,4 @@ package-lock.json
 
 prisma/client
 .vscode
+.yarn

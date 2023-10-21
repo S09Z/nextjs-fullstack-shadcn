@@ -21,7 +21,7 @@
     "@pothos/core": "^3.38.0",
     "@pothos/plugin-prisma": "^3.60.0",
     "@pothos/plugin-relay": "^3.44.0",
-    "@prisma/client": "5.3.1",
+    "@prisma/client": "5.4.2",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
@@ -85,7 +85,7 @@
     "@types/react": "^18.2.23",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
-    "prisma": "^5.3.1",
+    "prisma": "^5.4.2",
     "tailwindcss": "^3.3.3",
     "typescript": "^4.9.5"
   }
