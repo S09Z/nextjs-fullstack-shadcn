@@ -1,6 +1,6 @@
-"use client"
-
 import * as React from "react"
+import { useRouter } from 'next/router'
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -27,16 +27,21 @@ import {
 
 import { DataTablePagination } from "./data-table-pagination"
 import { DataTableToolbar } from "./data-table-toolbar"
+import CompaniesDataTableToolbar from "./companies/data-table-toolbar"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  data: any[]
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const router = useRouter()
+  const slug = (router.query.slug as string) ?? ''
+  const subPath = router?.route?.split('/').at(2) ?? ''
+
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
@@ -69,7 +74,12 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
+      {(router.route.includes('/companies')) ? (
+        <CompaniesDataTableToolbar table={table} />
+      ) : (
+        <DataTableToolbar table={table} />
+      )}
+      
       <div className="rounded-md border">
         <Table>
           <TableHeader>

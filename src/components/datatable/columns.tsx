@@ -6,11 +6,11 @@ import { Badge } from "../ui/badge"
 import { Checkbox } from "../ui/checkbox"
 
 import { labels, priorities, statuses } from "../../constant/members"
-import { Task } from "../data/schema"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
+import { AnyAaaaRecord } from "dns"
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<AnyAaaaRecord>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -46,8 +46,8 @@ export const columns: ColumnDef<Task>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
     ),
-    cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label)
+    cell: ({ row }: any) => {
+      const label = labels.find((label) => label.value === row.original?.label)
 
       return (
         <div className="flex space-x-2">

@@ -1,39 +1,49 @@
 import Link from "next/link"
-
-import { cn } from "lib/utils"
+import { useRouter } from "next/router"
+import { cn } from "@/lib/utils"
 
 export function MainNav({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
+  const router = useRouter()
+
   return (
     <nav
       className={cn("flex items-center space-x-4 lg:space-x-6", className)}
       {...props}
     >
       <Link
-        href="/examples/dashboard"
-        className="text-sm font-medium transition-colors hover:text-primary"
+        href="/dashboard"
+        className={`text-sm font-medium transition-colors ${
+          router.pathname === "/dashboard" ? "" : "text-muted-foreground"
+        }`}
       >
         Overview
       </Link>
       <Link
-        href="/examples/dashboard"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        href="/members"
+        className={`text-sm font-medium transition-colors ${
+          router.pathname === "/members" ? "" : "text-muted-foreground"
+        }`}
       >
-        Customers
+        Members
       </Link>
       <Link
-        href="/examples/dashboard"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        href="/companies"
+        className={`text-sm font-medium transition-colors ${
+          router.pathname === "/companies" ? "" : "text-muted-foreground"
+        }`}
       >
-        Products
+        Companies
       </Link>
       <Link
-        href="/examples/dashboard"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        href="/licenses"
+        className={`text-sm font-medium transition-colors ${
+          router.pathname === "/licenses" ? "" : "text-muted-foreground"
+        }`}
       >
-        Settings
+        Licenses
       </Link>
     </nav>
   )

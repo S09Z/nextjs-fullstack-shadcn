@@ -12,8 +12,8 @@ builder.prismaObject('users', {
     status: t.exposeInt('status', { nullable: false, }),
     usageSize: t.exposeFloat('size', { nullable: false, }),
     storeSize: t.exposeFloat('size_cont', { nullable: true, }),
-    updatedAt: t.expose('updated_at', {type: "Date", nullable: true}),
-    createdAt: t.expose('created_at', {type: "Date", nullable: true}),
+    updatedAt: t.expose('updated_at', {type: "Date", nullable: false}),
+    // createdAt: t.expose('created_at', {type: "Date", nullable: false}),
   })
 })
 
@@ -22,7 +22,11 @@ builder.queryField('users', (t) =>
     type: 'users',
     cursor: 'Id',
     resolve: (query, _parent, _args, _ctx, _info) =>
-      prisma.users.findMany({ ...query, where: { status: 1}, orderBy: { 'updated_at': 'desc' }})
+      prisma.users.findMany({ 
+        ...query, 
+        where: { status: {in: [1,9]}}, 
+        take: _args.first as number ?? 1000,
+        orderBy: { 'updated_at': 'desc' }})
   })
 )
 

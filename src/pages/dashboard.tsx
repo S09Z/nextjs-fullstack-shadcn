@@ -1,29 +1,32 @@
+
+import * as React from "react"
+import { useRouter } from 'next/router'
 import { Metadata } from "next"
 import Image from "next/image"
 import { gql, useQuery } from '@apollo/client'
-import type { users } from '@prisma/client'
+// import type { users } from '@prisma/client'
 
-import { Button } from "../components/ui/button"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/ui/card"
+} from "@/components/ui/card"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "../components/ui/tabs"
-import { CalendarDateRangePicker } from "../components/dashboard/date-range-picker"
-import { MainNav } from "../components/dashboard/main-nav"
-import { Overview } from "../components/dashboard/overview"
-import { RecentSales } from "../components/dashboard/recent-sales"
-import { Search } from "../components/dashboard/search"
-import TeamSwitcher from "../components/dashboard/team-switcher"
-import { UserNav } from "../components/dashboard/user-nav"
+} from "@/components/ui/tabs"
+import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker"
+import { MainNav } from "@/components/dashboard/main-nav"
+import { Overview } from "@/components/dashboard/overview"
+import { RecentSales } from "@/components/dashboard/recent-sales"
+import { Search } from "@/components/dashboard/search"
+import TeamSwitcher from "@/components/dashboard/team-switcher"
+import { UserNav } from "@/components/dashboard/user-nav"
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -50,7 +53,6 @@ const AllLinksQuery = gql`
           storeSize
           usageSize
           updatedAt
-          createdAt
         }
       }
     }
@@ -58,19 +60,32 @@ const AllLinksQuery = gql`
 `;
 
 export default function DashboardPage() {
-  const { data, loading, error, fetchMore } = useQuery(AllLinksQuery, {
-    variables: { first: 1000 },
-  });
+
+  const router = useRouter()
+
+  React.useEffect(() => {
+    const authTokenExpiration = localStorage.getItem("authTokenExpiration")
+    console.log(`authTokenExpiration ::: ${authTokenExpiration}`)
+    const currentTime = new Date().getTime()
+
+    if (!authTokenExpiration || currentTime > parseInt(authTokenExpiration)) {
+      router.push("login")
+    }
+  }, [])
+
+  // const { data, loading, error, fetchMore } = useQuery(AllLinksQuery, {
+  //   variables: { first: 1000 },
+  // });
 
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Oh no... {error.message}</p>;
   
   return (
     <>
-      {data?.users.edges.map(({ node }: { node: users }) => (
+      {/* {data?.users.edges.map(({ node }: { node: users }) => (
         <p className="text-sm text-blue-500">{node.email}</p>
-      ))}
+      ))} */}
       <div className="md:hidden">
         <Image
           src="/examples/dashboard-light.png"
@@ -90,10 +105,10 @@ export default function DashboardPage() {
       <div className="hidden flex-col md:flex">
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
-            <TeamSwitcher />
+            {/* <TeamSwitcher /> */}
             <MainNav className="mx-6" />
             <div className="ml-auto flex items-center space-x-4">
-              <Search />
+              {/* <Search /> */}
               <UserNav />
             </div>
           </div>

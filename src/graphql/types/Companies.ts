@@ -21,6 +21,10 @@ builder.queryField('companies', (t) =>
     type: 'companies',
     cursor: 'Id',
     resolve: (query, _parent, _args, _ctx, _info) =>
-      prisma.companies.findMany({ ...query })
+      prisma.companies.findMany({ 
+        ...query,
+        take: _args.first as number ?? 1000,
+        orderBy: { 'expire_date': 'desc' }
+      })
   })
 )

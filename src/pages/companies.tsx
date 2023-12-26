@@ -1,10 +1,13 @@
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+
 import { Metadata } from "next"
 import Image from "next/image"
 
 import { MainNav } from "@/components/dashboard/main-nav"
 import { UserNav } from "@/components/dashboard/user-nav"
 
-import Members from '@/module/users'
+import Companies from '@/module/companies'
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -12,6 +15,17 @@ export const metadata: Metadata = {
 }
 
 export default function CompaniesPage() {
+  const router = useRouter()
+
+  useEffect(() => {
+    const authTokenExpiration = localStorage.getItem("authTokenExpiration")
+    const currentTime = new Date().getTime()
+
+    if (!authTokenExpiration || currentTime > parseInt(authTokenExpiration)) {
+      router.push("login")
+    }
+  }, [])
+
   return (
     <>
       <div className="md:hidden">
@@ -41,7 +55,7 @@ export default function CompaniesPage() {
             </div>
           </div>
         </div>
-        <Members />
+        <Companies />
       </div>
     </>
   )
