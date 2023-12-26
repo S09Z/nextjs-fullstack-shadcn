@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import usersData from "@/json/users.json";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
@@ -21,6 +21,13 @@ export default function AuthenticationPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    const authTokenExpiration = localStorage.getItem("authTokenExpiration")
+    if (authTokenExpiration) {
+      router.push("dashboard")
+    }
+  }, [])
 
   const handleLogin = () => {
     const isAuthenticated = authenticateUser(username, password);

@@ -60,18 +60,20 @@ const AllLinksQuery = gql`
 `;
 
 export default function DashboardPage() {
-
   const router = useRouter()
-
+  const [authen, setAuthen] = React.useState<string | undefined>(undefined)
   React.useEffect(() => {
-    const authTokenExpiration = localStorage.getItem("authTokenExpiration")
-    console.log(`authTokenExpiration ::: ${authTokenExpiration}`)
     const currentTime = new Date().getTime()
-
+    const authTokenExpiration = localStorage.getItem("authTokenExpiration") ?? undefined;
+    setAuthen(authTokenExpiration)
     if (!authTokenExpiration || currentTime > parseInt(authTokenExpiration)) {
       router.push("login")
     }
   }, [])
+
+  if (!authen) {
+    return <div></div>
+  }
 
   // const { data, loading, error, fetchMore } = useQuery(AllLinksQuery, {
   //   variables: { first: 1000 },
