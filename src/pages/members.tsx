@@ -1,10 +1,10 @@
 import { Metadata } from "next"
 import Image from "next/image"
 
-import { MainNav } from "@/components/dashboard/main-nav"
-import { UserNav } from "@/components/dashboard/user-nav"
+import { MainNav } from "@@/components/dashboard/main-nav"
+import { UserNav } from "@@/components/dashboard/user-nav"
 
-import Members from '@/module/users'
+import Members from '@@/module/users'
 
 export const metadata: Metadata = {
   title: "Dashboard",

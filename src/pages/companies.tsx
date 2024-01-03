@@ -4,10 +4,10 @@ import { useRouter } from 'next/router'
 import { Metadata } from "next"
 import Image from "next/image"
 
-import { MainNav } from "@/components/dashboard/main-nav"
-import { UserNav } from "@/components/dashboard/user-nav"
+import { MainNav } from "@@/components/dashboard/main-nav"
+import { UserNav } from "@@/components/dashboard/user-nav"
 
-import Companies from '@/module/companies'
+import Companies from '@@/module/companies'
 
 export const metadata: Metadata = {
   title: "Dashboard",

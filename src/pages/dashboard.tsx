@@ -6,27 +6,27 @@ import Image from "next/image"
 import { gql, useQuery } from '@apollo/client'
 // import type { users } from '@prisma/client'
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@@/components/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@@/components/ui/card"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs"
-import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker"
-import { MainNav } from "@/components/dashboard/main-nav"
-import { Overview } from "@/components/dashboard/overview"
-import { RecentSales } from "@/components/dashboard/recent-sales"
-import { Search } from "@/components/dashboard/search"
-import TeamSwitcher from "@/components/dashboard/team-switcher"
-import { UserNav } from "@/components/dashboard/user-nav"
+} from "@@/components/ui/tabs"
+import { CalendarDateRangePicker } from "@@/components/dashboard/date-range-picker"
+import { MainNav } from "@@/components/dashboard/main-nav"
+import { Overview } from "@@/components/dashboard/overview"
+import { RecentSales } from "@@/components/dashboard/recent-sales"
+import { Search } from "@@/components/dashboard/search"
+import TeamSwitcher from "@@/components/dashboard/team-switcher"
+import { UserNav } from "@@/components/dashboard/user-nav"
 
 export const metadata: Metadata = {
   title: "Dashboard",

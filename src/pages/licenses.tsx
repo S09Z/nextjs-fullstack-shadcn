@@ -23,8 +23,8 @@ import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 import type { users } from 'prisma/client'
 
  
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@@/components/ui/button"
+import { Checkbox } from "@@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -33,8 +33,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+} from "@@/components/ui/dropdown-menu"
+import { Input } from "@@/components/ui/input"
 import {
   Table,
   TableBody,
@@ -42,11 +42,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@@/components/ui/table"
 
-// import { columns } from "@/components/datatable/columns"
-import { DataTable } from "@/components/datatable/data-table"
-import { UserNav } from "@/components/datatable/user-nav"
+// import { columns } from "@@/components/datatable/columns"
+import { DataTable } from "@@/components/datatable/data-table"
+import { UserNav } from "@@/components/datatable/user-nav"
 export const metadata: Metadata = {
   title: "Tasks",
   description: "A task and issue tracker build using Tanstack Table.",
